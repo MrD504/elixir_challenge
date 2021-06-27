@@ -2,11 +2,11 @@ defmodule BlackJack.Deck do
   alias BlackJack.Card
 
   def new do
-    new_suite_of_cards()
+    new_suit_of_cards()
     |> Enum.shuffle()
   end
 
-  def new_suite_of_cards() do
+  def new_suit_of_cards() do
     suits = ~w(Heart Club Diamond Spade)
     ranks = ~w(
       Ace

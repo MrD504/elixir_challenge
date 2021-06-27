@@ -86,6 +86,7 @@ defmodule BlackJack.Game do
     rest_of_deck ++ head
   end
 
+  @derive {Jason.Encoder, except: []}
   defstruct players_score: 0,
             dealers_score: 0,
             win_condition_met: false,

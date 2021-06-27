@@ -1,10 +1,11 @@
 defmodule BlackJack.Card do
   alias BlackJack.Card
 
-  @enforce_keys [:suite, :name]
-  defstruct [:suite, :name]
+  @derive {Jason.Encoder, only: [:suit, :name]}
+  @enforce_keys [:suit, :name]
+  defstruct [:suit, :name]
 
-  def new(suite, name) do
-    %Card{suite: suite, name: name}
+  def new(suit, name) do
+    %Card{suit: suit, name: name}
   end
 end

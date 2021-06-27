@@ -9,6 +9,7 @@ defmodule BlackJack do
   if it comes from the database, an external API or others.
   """
 
+  @derive {Jason.Encoder, expect: []}
   def start(ui) do
     {:ok, game} = State.new(ui)
   end

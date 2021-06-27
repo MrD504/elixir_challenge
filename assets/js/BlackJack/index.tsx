@@ -1,37 +1,36 @@
 import React, { useState, useEffect } from "react";
-import socket, { channel } from "../socket";
+import socket from "../socket";
+socket.connect();
+let channel = socket.channel("room:game", {});
+channel
+  .join()
+  .receive("ok", (response) => console.log("joined successfully", response));
 
 const BlackJack = () => {
   const [score, setScore] = useState(0);
+  const [gameState, setGameState] = useState({});
   const [gameOver, setGameOver] = useState(false);
 
+  useEffect(() => {
+    channel.push("start_game", {});
+  }, []);
+
+  channel.on("new_game", (gs) => {
+    console.log(gs);
+  });
   useEffect(() => {
     if (score > 21) {
       setGameOver(true);
     }
   }, [score]);
 
-  useEffect(() => {
-    // handle initial setup
-    if (score === 0) {
-      return;
-    }
-
-    if (score > 21) {
-      alert("Bust!");
-      return;
-    }
-
-    alert("You win!");
-  }, [gameOver]);
-
   const handleHit = () => {
     channel.push("hit_me", {});
   };
 
-  const handleStick = () => {
-    setGameOver(true);
-  };
+  // const handleStick = () => {
+  // setGameOver(true);
+  // };
 
   return (
     <section
@@ -49,7 +48,7 @@ const BlackJack = () => {
         }}
       >
         <button onClick={handleHit}>Hit</button>
-        <button onClick={handleStick}>stick</button>
+        <button>stick</button>
       </div>
       <div style={{ color: "white", padding: "5px", margin: "5px" }}>
         Score: {score}

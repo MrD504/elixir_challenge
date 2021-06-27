@@ -2,6 +2,7 @@ defmodule BlackJack.State do
   alias BlackJack.{Game, State}
   @players [:p1, :dealer]
 
+  @derive {Jason.Encoder, except: []}
   defstruct status: :initial,
             winner: nil,
             game: Game.new(),
