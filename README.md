@@ -53,3 +53,11 @@ The suit has no bearing on the value of the card in the game.
 
 - The app should ideally track the 'deck' of cards rather than just issuing random cards. Therefore once a card is 'used' it should go back onto the back of the deck.
 - Aces can be 1 or 11 and your app should calculate the best hand automatically
+
+## Play CLI version
+```
+iex -S mix
+import BlackJack
+alias BlackJack.CLI
+{:ok, s} = CLI.play()
+CLI.start_game(s)
